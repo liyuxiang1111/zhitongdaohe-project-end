@@ -1,0 +1,7 @@
+package com.project.group.dao.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.project.group.dao.pojo.Member;
+
+public interface MemberMapper extends BaseMapper<Member> {
+}
