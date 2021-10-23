@@ -4,13 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.project.group.dao.mapper.ProjectBodyMapper;
 import com.project.group.dao.mapper.ProjectMapper;
+import com.project.group.dao.mapper.ProjectResourceMapper;
 import com.project.group.dao.mapper.TypeMapper;
 import com.project.group.dao.pojo.*;
 import com.project.group.service.*;
 import com.project.group.vo.*;
-import com.project.group.vo.params.ProjectParam;
 import com.project.group.vo.params.PageParams;
-import com.project.group.utils.UserThreadLocal;
+import com.project.group.dao.pojo.ProjectResource;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
@@ -23,8 +23,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -43,10 +46,53 @@ public class ProjectServiceImpl implements ProjectService {
     @Resource
     private ThreadService threadService;
 
+    @Resource
+    private ProjectResourceMapper projectResourceMapper;
 
     @Resource
     private TypeMapper typeMapper;
 
+
+    /**
+     * 按id删除指定的project
+     * @param projectId
+     * @return
+     */
+    @Override
+    public Result deleteProjectById(Integer projectId) {
+        Project project = projectMapper.selectById(projectId);
+        if(project == null){
+            return Result.fail(ErrorCode.PARAMS_ERROR.getCode(),ErrorCode.PARAMS_ERROR.getMsg());
+        }
+        projectMapper.deleteById(projectId);
+        return Result.success(null);
+    }
+
+    /**
+     * 删除指定项目下的指定资源
+     * @param projectResource
+     * @return
+     * @throws IOException
+     */
+
+    @Override
+    public Result deleteResource(ProjectResource projectResource) throws IOException {
+        ProjectResource re = projectResourceMapper.selectById(projectResource.getDocId());
+        if(re != null){
+            /**
+             * 没有这个资源
+             */
+            return Result.fail(ErrorCode.PARAMS_ERROR.getCode(),ErrorCode.PARAMS_ERROR.getMsg());
+        }
+        int i = projectResourceMapper.deleteById(projectResource.getDocId());
+        if(i != 1){
+            return Result.fail(ErrorCode.PARAMS_ERROR.getCode(),ErrorCode.PARAMS_ERROR.getMsg());
+        }
+        String realPath = "C:\\java项目\\r_note\\src\\main\\webapp\\projectFile";
+        File delFile = new File(realPath+"\\" + projectResource.getProjectId()+"\\"+projectResource.getResourceName());
+        FileUtils.forceDelete(delFile);
+        return Result.success(null);
+    }
 
     /**
      * 创建项目
@@ -56,7 +102,7 @@ public class ProjectServiceImpl implements ProjectService {
      */
 
     @Override
-    public Result publish(HttpServletRequest request ) throws IOException {
+    public Result createProject(HttpServletRequest request ) throws IOException {
         boolean isMultipart= ServletFileUpload.isMultipartContent(request);  //enctype属性是否是multipart/form-data
         ProjectBody projectBody = new ProjectBody();
         Project project = new Project();
@@ -188,7 +234,68 @@ public class ProjectServiceImpl implements ProjectService {
         return Result.success(copyList(articles,false,false));
     }
 
-//    public Result listArticle(PageParams pageParams) {
+    /**
+     * 上传资源
+     * @param request
+     * @param response
+     * @return
+     */
+
+    @Override
+    public Result postThisResource(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        Integer projectId = Integer.valueOf(request.getParameter("projectId"));
+        String postTime = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        request.setCharacterEncoding("utf-8");//从前端获取的文件类型编码设置
+        response.setCharacterEncoding("utf-8");//响应的文件类型的编码
+        response.setContentType("text/html;charset=UTF-8");//响应文件的类型MIME类型设置
+        //上传文件到servlet
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);//判断前端发送的数据是否是multipart类型
+        if(isMultipart) {//确定前端form表单中是否有enctype元素
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory); //这样就可以完美的处理数据了
+            //设置缓冲区的大小
+            factory.setSizeThreshold(10240);
+            //通过parseRequest解析form中的所有字段 并保存到items集合中
+            try {
+                List<FileItem> items = upload.parseRequest((RequestContext) request);//处理前端的请求数据  即前端传过来的sname sno spicture 就存储在items中
+                Iterator<FileItem> iter = items.iterator();//设置遍历的类型
+                while (iter.hasNext()) {
+                    FileItem item = iter.next();//依次取出数据 数据可以看做是字典对象
+                    String itemName = item.getFieldName();//获取name属性值
+                    //判断上传类型是否符合要求  不符合要求返回
+                    int sno = -1;
+                    String sname = null;
+                    if (item.isFormField()) {
+                        if (itemName.equals("sno")) {//判断是否是sno属性
+                            sno = Integer.parseInt(item.getString());
+                        } else {//判断是否是sname属性
+                            sname = item.getString();
+                        }
+                    } else {//是文件字段
+                        String fileName = item.getName();//获取文件名
+//                        检查是存在文件了
+                        LambdaQueryWrapper<ProjectResource> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+                        lambdaQueryWrapper.eq(ProjectResource::getResourceName,fileName);
+                        lambdaQueryWrapper.eq(ProjectResource::getProjectId,projectId);
+                        ProjectResource re = projectResourceMapper.selectOne(lambdaQueryWrapper);
+                        if(re != null){
+                            return Result.fail(ErrorCode.PARAMS_REPEAT.getCode(),ErrorCode.PARAMS_REPEAT.getMsg());
+                        }
+                        String path = "C:\\java项目\\r_note\\src\\main\\webapp\\projectFile\\"+projectId+"\\";//设置路径为定值
+                        String type = fileName.substring(fileName.indexOf(".") + 1);//获取文件的后缀
+                        File file = new File(path, fileName);
+                        item.write(file);//这样就将文件存储到指定的文件了
+                        return Result.success(null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return Result.fail(ErrorCode.PARAMS_ERROR.getCode(),ErrorCode.PARAMS_ERROR.getMsg());
+    }
+
+    //    public Result listArticle(PageParams pageParams) {
 //
 //        /**
 //         * 分页查询数据库的表
@@ -280,8 +387,5 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return projectVo;
     }
-
-
-
 
 }

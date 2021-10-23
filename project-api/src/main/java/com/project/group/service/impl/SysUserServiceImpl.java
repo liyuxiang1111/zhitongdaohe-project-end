@@ -17,6 +17,8 @@ import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -35,6 +37,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Resource
     private LoginService loginService;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
 
     /**
@@ -181,5 +186,20 @@ public class SysUserServiceImpl implements SysUserService {
         // 这个地方默认生成的id 分布式Id 生成使用的是雪花算法
         //mybatis
         this.userMapper.insert(user);
+    }
+
+
+    /**
+     * 删除用户
+     * @param token
+     * @return
+     */
+    @Override
+    public Result deleteUser(String token) {
+        redisTemplate.delete("TOKEN_"+ token);
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(User::getUserId,UserThreadLocal.get().getUserId());
+        userMapper.delete(lambdaQueryWrapper);
+        return Result.success(null);
     }
 }

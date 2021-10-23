@@ -1,5 +1,6 @@
 package com.project.group.service;
 
+import com.project.group.dao.pojo.ProjectResource;
 import com.project.group.vo.Result;
 import com.project.group.vo.params.ProjectParam;
 import com.project.group.vo.params.PageParams;
@@ -7,6 +8,7 @@ import com.project.group.vo.params.PageParams;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public interface ProjectService {
 
@@ -40,6 +42,30 @@ public interface ProjectService {
      * @return
      */
 
-    Result publish(HttpServletRequest request ) throws IOException;
+    Result createProject(HttpServletRequest request ) throws IOException;
 
+
+    /**
+     * 上传资源
+     * @param request
+     * @param response
+     * @return
+     */
+    Result postThisResource(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException;
+
+
+    /**
+     * 删除这个资源
+     * @param projectResource
+     * @return
+     */
+    Result deleteResource(ProjectResource projectResource) throws IOException;
+
+
+    /**
+     * 删除项目
+     * @param projectId
+     * @return
+     */
+    Result deleteProjectById(Integer projectId);
 }

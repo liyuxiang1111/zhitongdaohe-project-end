@@ -17,8 +17,6 @@ public class PersonController {
     @Resource
     private PersonService personService;
 
-
-
     @PostMapping("person")
     public Result intoPersonCenter(){
         return personService.intoPersonCenter();

@@ -11,7 +11,9 @@ public enum  ErrorCode {
     SESSION_TIME_OUT(90001,"会话超时"),
     NO_LOGIN(90002,"未登录"),
     TOKEN_ERROR(10002,"token为空!!"),
-    PARAMS_REPEAT(10003,"参数名字重复!!");
+    PARAMS_REPEAT(10003,"参数名字重复!!"),
+    Authority_LARGEST(10004,"用户权限最大了!!"),
+    Authority_SMALLEST(10004,"用户权限最小了!!");
 
 
     private int code;

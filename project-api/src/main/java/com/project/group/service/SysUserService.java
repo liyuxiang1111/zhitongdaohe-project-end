@@ -47,4 +47,11 @@ public interface SysUserService {
      * @return
      */
     Result changeUserInformation(HttpServletRequest request);
+
+    /**
+     * 删除用户
+     * @param token
+     * @return
+     */
+    Result deleteUser(String token);
 }

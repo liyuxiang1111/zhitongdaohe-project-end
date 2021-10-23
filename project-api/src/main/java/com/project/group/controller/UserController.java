@@ -30,7 +30,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/logout")
+    @DeleteMapping("login")
     public Result logout(@RequestHeader("Authorization") String token){
         //登录 用户访问用户表  但是
         return loginService.logout(token);
@@ -50,6 +50,11 @@ public class UserController {
     @PostMapping("change")
     public Result changeUser(HttpServletRequest request){
         return sysUserService.changeUserInformation(request);
+    }
+
+    @DeleteMapping("delete")
+    public Result deleteUser(@RequestHeader("Authorization") String token){
+        return sysUserService.deleteUser(token);
     }
 
 

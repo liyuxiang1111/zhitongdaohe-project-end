@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional
-public class LoginServiceImpl implements LoginService {
+public class IndexServiceImpl implements LoginService {
     @Autowired
     private SysUserService sysUserService;
     @Autowired

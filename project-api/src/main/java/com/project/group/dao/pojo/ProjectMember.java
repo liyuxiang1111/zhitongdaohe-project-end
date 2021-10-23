@@ -4,13 +4,13 @@ package com.project.group.dao.pojo;
 import lombok.Data;
 
 @Data
-public class Member {
+public class ProjectMember {
 
     private Integer projectId;//项目id
 
     private Integer memberId;//成员id
 
-    private Integer createUserId;//创建用户id
+    private Long createUserId;//创建用户id
 
     private String userName;//用户名字
 
@@ -22,7 +22,7 @@ public class Member {
 
     private Integer memberAssionment;//用户权限
 
-    private String joinDay;//用户加入日期
+    private Long joinDay;//用户加入日期
 
     private String memberImg;//用户头部
 
