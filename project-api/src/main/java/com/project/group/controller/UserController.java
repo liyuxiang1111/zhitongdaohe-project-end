@@ -36,7 +36,7 @@ public class UserController {
         return loginService.logout(token);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Result login(@RequestBody LoginParam loginParam){
         return loginService.login(loginParam);
     }
