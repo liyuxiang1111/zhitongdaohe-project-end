@@ -45,6 +45,7 @@ public class IndexServiceImpl implements LoginService {
             return Result.fail(ErrorCode.PARAMS_ERROR.getCode(),ErrorCode.PARAMS_ERROR.getMsg());
         }
 //        加密语言
+        password = DigestUtils.md5Hex(password+slat);
         User user = sysUserService.findUser(account,password);
         if(user == null){
             return Result.fail(ErrorCode.ACCOUNT_PWD_NOT_EXIST.getCode(),ErrorCode.ACCOUNT_PWD_NOT_EXIST.getMsg());

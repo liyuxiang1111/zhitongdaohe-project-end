@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -127,7 +128,7 @@ public class ProjectServiceImpl implements ProjectService {
                         } else if(fileItem.getFieldName().equals("projectHead")){
                             projectBody.setProjectContent(fileItem.getString("UTF-8"));
                         } else if(fileItem.getFieldName().equals("projectContent_real")){
-                            projectBody.setContentHtml(fileItem.getString("UTF-8"));
+                            projectBody.setProjectHtml(fileItem.getString("UTF-8"));
                         } else if(fileItem.getFieldName().equals("projectType_real")){
                             project.setProjectTypeId(Integer.parseInt(fileItem.getString("UTF-8")));
                         } else if(fileItem.getFieldName().equals("province")){
@@ -178,11 +179,12 @@ public class ProjectServiceImpl implements ProjectService {
 
         LambdaQueryWrapper<Project> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         Integer count = projectMapper.selectCount(lambdaQueryWrapper);
+        Long longTime = (new SimpleDateFormat("yyyyMMdd")).parse(pageParams.getSearchDay(),new ParsePosition(0)).getTime();
         List<Project> projectList =  projectMapper.listProject(
                 pageParams.getPageNum(),
                 pageParams.getPageSize(),
                 pageParams.getProjectName(),
-                pageParams.getSearchDay(),
+                longTime,
                 pageParams.getProjectTypeId(),
                 pageParams.getMemberNum(),
                 pageParams.getUserSex(),
@@ -342,7 +344,7 @@ public class ProjectServiceImpl implements ProjectService {
     private List<ProjectVo> copyList(List<Project> records, boolean isType, boolean isAuthor) {
         List<ProjectVo> projectVoList = new ArrayList<>();
         for(Project record : records){
-            projectVoList.add(copy(record,isType,isAuthor,false,false));
+            projectVoList.add(copy(record,isType,isAuthor,true,false));
         }
         return projectVoList;
     }
@@ -375,7 +377,7 @@ public class ProjectServiceImpl implements ProjectService {
             LambdaQueryWrapper<Type> lambdaQueryWrapper1 = new LambdaQueryWrapper<>();
             lambdaQueryWrapper1.eq(Type::getId,project.getProjectTypeId());
             Type type = typeMapper.selectOne(lambdaQueryWrapper1);
-            projectVo.setProjectName(type.getTypeName());
+            projectVo.setProjectName(project.getProjectName());
         }
         if(isAuthor){
             Long authorId = project.getUserId();

@@ -38,6 +38,7 @@ public class UserController {
 
     @PostMapping("/login")
     public Result login(@RequestBody LoginParam loginParam){
+        System.out.println(loginParam.getUserName());
         return loginService.login(loginParam);
     }
 

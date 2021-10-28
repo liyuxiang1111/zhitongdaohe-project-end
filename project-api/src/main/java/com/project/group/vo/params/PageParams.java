@@ -16,7 +16,7 @@ public class PageParams {
 
     private String searchDay;
 
-    private List<Integer> province;
+    private Integer province;
 
     private Integer projectTypeId;
 

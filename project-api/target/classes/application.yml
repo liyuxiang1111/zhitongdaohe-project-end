@@ -7,9 +7,9 @@ spring:
 
 ##���ݿ�����
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/data?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/data2?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC
     username: root
-    password: root
+    password: Lyx123456@
     driver-class-name: com.mysql.jdbc.Driver
   redis:
     host: 127.0.0.1

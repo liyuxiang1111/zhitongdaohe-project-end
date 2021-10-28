@@ -1,6 +1,8 @@
 package com.project.group.controller;
 
+import com.project.group.dao.pojo.User;
 import com.project.group.service.PersonService;
+import com.project.group.utils.UserThreadLocal;
 import com.project.group.vo.Result;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ public class PersonController {
 
     @PostMapping("person")
     public Result intoPersonCenter(){
-        return personService.intoPersonCenter();
+        User user = UserThreadLocal.get();
+        return personService.intoPersonCenter(user);
     }
 }

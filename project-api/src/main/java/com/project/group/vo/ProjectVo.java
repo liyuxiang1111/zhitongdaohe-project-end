@@ -20,6 +20,8 @@ public class ProjectVo {
 
     private ProjectBody projectBody;//项目主体
 
+    private Integer memberNum; //成员数量
+
     private Integer visitNumber;//项目成员数量
 
     private String province;//项目省份

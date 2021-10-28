@@ -1,6 +1,7 @@
 package com.project.group.vo;
 
 
+import com.project.group.dao.pojo.ProjectBody;
 import com.project.group.dao.pojo.ProjectReceiveRequest;
 import com.project.group.dao.pojo.User;
 import lombok.Data;
@@ -14,6 +15,12 @@ public class PersonCenterVo {
 
     private List<ProjectReceiveRequest> requestList;
 
-    private List<ProjectLessVo> projectLessVoList;
+    private List<ProjectVo> projectVoList;
+
+    private Integer userJoined;     //加入的
+
+    private Integer userCreate;     //创建的
+
+    private Integer userAllProjectNum; //总
 
 }

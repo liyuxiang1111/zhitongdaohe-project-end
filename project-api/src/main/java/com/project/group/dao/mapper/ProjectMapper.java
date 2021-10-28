@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.project.group.dao.dos.Archives;
 import com.project.group.dao.pojo.Project;
 import com.project.group.vo.Page;
+import com.project.group.vo.ProjectVo;
 
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,6 @@ import java.util.List;
 public interface ProjectMapper extends BaseMapper<Project> {
 
 
-    List<Project> listProject(Integer pageNum , Integer pageSize , String projectName, String searchTime, Integer projectTypeId, Integer memberNum , Integer userSex ,  String userStudy );
+    List<Project> listProject(Integer pageNum , Integer pageSize , String projectName, Long searchTime, Integer projectTypeId, Integer memberNum , Integer userSex ,  String userStudy );
 }
 

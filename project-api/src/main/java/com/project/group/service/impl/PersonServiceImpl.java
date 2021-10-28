@@ -1,13 +1,8 @@
 package com.project.group.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.project.group.dao.mapper.PersonMapper;
-import com.project.group.dao.mapper.ProjectMapper;
-import com.project.group.dao.mapper.ReceiveRequestMapper;
-import com.project.group.dao.pojo.Project;
-import com.project.group.dao.pojo.ProjectReceiveRequest;
-import com.project.group.dao.pojo.Type;
-import com.project.group.dao.pojo.User;
+import com.project.group.dao.mapper.*;
+import com.project.group.dao.pojo.*;
 import com.project.group.service.PersonService;
 import com.project.group.service.SysUserService;
 import com.project.group.utils.UserThreadLocal;
@@ -36,20 +31,33 @@ public class PersonServiceImpl implements PersonService {
     @Resource
     private ReceiveRequestMapper receiveRequestMapper;
 
+    @Resource
+    private MemberMapper memberMapper;
+
+    @Resource
+    private ProjectBodyMapper projectBodyMapper;
+
 
     @Override
-    public Result intoPersonCenter() {
+    public Result intoPersonCenter(User user) {
         LambdaQueryWrapper<Project> lambdaQueryWrapper1 = new LambdaQueryWrapper<>();
-        User user = new User();
-        user.setUserId(1L);
-        user.setUserName("lisi");
 //        User user = UserThreadLocal.get();
         lambdaQueryWrapper1.eq(Project::getUserId,user.getUserId());
         List<Project> projectList = projectMapper.selectList(lambdaQueryWrapper1);
         PersonCenterVo personCenterVo = new PersonCenterVo();
         personCenterVo.setUser(user);
-        UserThreadLocal.remove();
-        personCenterVo.setProjectLessVoList(copyList(projectList));
+        //        查创建的数量
+        LambdaQueryWrapper<Project> create = new LambdaQueryWrapper<>();
+        create.eq(Project::getUserId,user.getUserId());
+        Integer countCreate = projectMapper.selectCount(create);
+        personCenterVo.setUserCreate(countCreate);
+//        查参加的数量
+        LambdaQueryWrapper<ProjectMember> join = new LambdaQueryWrapper<>();
+        join.eq(ProjectMember::getUserName,user.getUserName());
+        Integer countJoin = memberMapper.selectCount(join);
+        personCenterVo.setUserCreate(countJoin);
+        personCenterVo.setUserAllProjectNum(countJoin+countCreate);
+        personCenterVo.setProjectVoList(copyList(projectList));
         LambdaQueryWrapper<ProjectReceiveRequest> lambdaQueryWrapper2 = new LambdaQueryWrapper<>();
         lambdaQueryWrapper2.eq(ProjectReceiveRequest::getUserId,user.getUserId());
         List<ProjectReceiveRequest> receiveList = receiveRequestMapper.selectList(lambdaQueryWrapper2);
@@ -63,20 +71,22 @@ public class PersonServiceImpl implements PersonService {
      * @param records
      * @return
      */
-    private List<ProjectLessVo> copyList(List<Project> records) {
-        List<ProjectLessVo> projectLessVos = new ArrayList<>();
+    private List<ProjectVo> copyList(List<Project> records) {
+        List<ProjectVo> projectVoList = new ArrayList<>();
         for(Project record : records){
-            projectLessVos.add(copy(record));
+            projectVoList.add(copy(record));
         }
-        return projectLessVos;
+        return projectVoList;
     }
 
 
-    private ProjectLessVo copy(Project project){
-        ProjectLessVo projectLessVo = new ProjectLessVo();
-        BeanUtils.copyProperties(project, projectLessVo);
-        projectLessVo.setProjectImg(project.getProjectImg());
-        //并不是所有的接口都需要标签 作者信息
-        return projectLessVo;
+    private ProjectVo copy(Project project){
+        ProjectVo projectVo = new ProjectVo();
+        BeanUtils.copyProperties(project, projectVo);
+        projectVo.setCreateTime(new DateTime(project.getCreateTime()).toString("yyyy-MM-dd"));
+        projectVo.setProjectImg(project.getProjectImg());
+        Integer bodyId = project.getProjectBodyId();
+        projectVo.setProjectBody(projectBodyMapper.selectById(bodyId));
+        return projectVo;
     }
 }

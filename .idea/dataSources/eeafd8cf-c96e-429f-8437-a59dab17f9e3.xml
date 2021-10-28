@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="data@localhost">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.18">
-    <root id="1">
-      <ServerVersion>5.5.40</ServerVersion>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <DefaultCasing>lower/lower</DefaultCasing>
-    </root>
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.23">
+    <root id="1"/>
     <schema id="2" parent="1" name="blog">
       <Collation>utf8_general_ci</Collation>
     </schema>
@@ -702,55 +697,47 @@
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="226" parent="216" name="projectHead">
       <Position>2</Position>
       <Comment>项目简介</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="227" parent="216" name="projectImg">
       <Position>3</Position>
       <Comment>项目封面</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="228" parent="216" name="projectName">
       <Position>4</Position>
       <Comment>项目封面</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="229" parent="217" name="typeName">
       <Position>1</Position>
       <Comment>推荐标签的名字</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="230" parent="217" name="typeImg">
       <Position>2</Position>
       <Comment>推荐标签的封面</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="231" parent="217" name="typeHead">
       <Position>3</Position>
       <Comment>推荐标签的简介</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="232" parent="217" name="typeId">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <key id="233" parent="217" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
@@ -763,64 +750,54 @@
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="235" parent="218" name="userId">
       <Position>2</Position>
       <Comment>创建者id</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="236" parent="218" name="projectName">
       <Position>3</Position>
       <Comment>项目名称</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="237" parent="218" name="projectType">
       <Position>4</Position>
       <Comment>项目id</Comment>
       <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="238" parent="218" name="projectImg">
       <Position>5</Position>
       <Comment>项目封面</Comment>
       <DataType>varchar(50)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="239" parent="218" name="projectHead">
       <Position>6</Position>
       <Comment>项目简介</Comment>
       <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="240" parent="218" name="projectContent">
       <Position>7</Position>
       <Comment>项目正文md文件</Comment>
       <DataType>varchar(5000)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="241" parent="218" name="visitNumber">
       <Position>8</Position>
       <Comment>浏览次数</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="242" parent="218" name="createTime">
       <Position>9</Position>
       <Comment>创建时间</Comment>
       <DataType>varchar(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="243" parent="218" name="province">
       <Position>10</Position>
       <DataType>varchar(20)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <index id="244" parent="218" name="projectId">
       <ColNames>projectId</ColNames>
@@ -839,27 +816,23 @@
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="248" parent="219" name="projectContent">
       <Position>2</Position>
       <Comment>项目简介</Comment>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="249" parent="219" name="projectHtml">
       <Position>3</Position>
       <Comment>项目内容</Comment>
       <DataType>varchar(1000)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="250" parent="219" name="projectId">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <index id="251" parent="219" name="`projectId`">
       <ColNames>projectId</ColNames>
@@ -881,70 +854,58 @@
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="255" parent="220" name="memberId">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="256" parent="220" name="createUserId">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="257" parent="220" name="userName">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="258" parent="220" name="memberLabel">
       <Position>5</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="259" parent="220" name="userSex">
       <Position>6</Position>
       <DataType>tinyint(4)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="260" parent="220" name="userLargestStudy">
       <Position>7</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="261" parent="220" name="memberLon">
       <Position>8</Position>
       <DataType>double|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="262" parent="220" name="memberLat">
       <Position>9</Position>
       <DataType>double|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="263" parent="220" name="memberAssionment">
       <Position>10</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="264" parent="220" name="memberHead">
       <Position>11</Position>
       <DataType>varchar(50)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="265" parent="220" name="joinDay">
       <Position>12</Position>
       <DataType>varchar(50)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <index id="266" parent="220" name="connection_project_member">
       <ColNames>projectId</ColNames>
@@ -967,47 +928,39 @@
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="270" parent="221" name="projectId">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="271" parent="221" name="userName">
       <Position>3</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="272" parent="221" name="userLabel">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="273" parent="221" name="userSex">
       <Position>5</Position>
       <DataType>tinyint(4)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="274" parent="221" name="userLargestStudy">
       <Position>6</Position>
       <DataType>varchar(50)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="275" parent="221" name="userIntroduce">
       <Position>7</Position>
       <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="276" parent="221" name="userId">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <key id="277" parent="221" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
@@ -1019,36 +972,30 @@
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="279" parent="222" name="resourceName">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="280" parent="222" name="projectId">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="281" parent="222" name="uploadNum">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="282" parent="222" name="userId">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="283" parent="222" name="postTime">
       <Position>6</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <key id="284" parent="222" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
@@ -1059,28 +1006,24 @@
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="286" parent="223" name="typeName">
       <Position>2</Position>
       <Comment>类型名字</Comment>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="287" parent="223" name="typeHead">
       <Position>3</Position>
       <Comment>类型的简介</Comment>
       <DataType>varchar(1000)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="288" parent="223" name="typeImg">
       <Position>4</Position>
       <Comment>类型的封面</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <key id="289" parent="223" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
@@ -1093,81 +1036,68 @@
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="291" parent="224" name="userName">
       <Position>2</Position>
       <Comment>用户名称</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="292" parent="224" name="userPwd">
       <Position>3</Position>
       <Comment>用户密码</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="293" parent="224" name="userTelephone">
       <Position>4</Position>
       <Comment>用户电话</Comment>
       <DataType>varchar(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="294" parent="224" name="userHead">
       <Position>5</Position>
       <Comment>用户头像</Comment>
       <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="295" parent="224" name="userLabel">
       <Position>6</Position>
       <Comment>用户标签</Comment>
       <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="296" parent="224" name="userContent">
       <Position>7</Position>
       <Comment>用户简介</Comment>
       <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="297" parent="224" name="userRealName">
       <Position>8</Position>
       <Comment>用户真实姓名</Comment>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="298" parent="224" name="userSex">
       <Position>9</Position>
       <Comment>用户性别</Comment>
       <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="299" parent="224" name="userBirthday">
       <Position>10</Position>
       <Comment>用户生日</Comment>
       <DataType>varchar(20)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="300" parent="224" name="userEmail">
       <Position>11</Position>
       <Comment>用户邮箱</Comment>
       <DataType>varchar(50)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="301" parent="224" name="userRole">
       <Position>12</Position>
       <Comment>用户角色</Comment>
       <DataType>tinyint(4)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="302" parent="224" name="userLargestStudy">
       <Position>13</Position>
       <DataType>varchar(20)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <index id="303" parent="224" name="userId">
       <ColNames>userId</ColNames>

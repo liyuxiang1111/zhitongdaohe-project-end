@@ -32,7 +32,7 @@ public class ProjectController {
      * @param pageParams
      * @return
      */
-    @GetMapping("view")
+    @PostMapping("view")
     @LogAnnotation(module="项目",operator="获取项目列表")
     @Cache(expire = 5 * 60 * 1000, name = "listArticle")
     public Result listProject(@RequestBody PageParams pageParams){

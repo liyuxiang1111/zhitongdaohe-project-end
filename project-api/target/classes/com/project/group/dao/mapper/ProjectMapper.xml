@@ -31,10 +31,10 @@
             <where>
                 1 = 1
                 <if test="projectName != null">
-                    and project_name like concat('%',${projectName},'%')
+                    and project_name like concat('%',#{projectName},'%')
                 </if>
-                <if test="searchTime != null">
-                    and search_time > #{serachTime}
+                <if test="searchTime != 0">
+                    and create_time > #{searchTime}
                 </if>
                 <if test="projectTypeId != -1">
                     and project_type_id = #{projectTypeId}
@@ -47,9 +47,6 @@
 
 <!--                </if>-->
 <!--                </if>-->
-                <if test="userStudy != null">
-                    and user_study = #{userStudy}
-                </if>
             </where>
             limit #{pageNum},#{pageSize}
     </select>

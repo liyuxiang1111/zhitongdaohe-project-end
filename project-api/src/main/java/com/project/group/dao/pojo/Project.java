@@ -17,7 +17,7 @@ public class Project {
 
     private String projectName;//项目名称
 
-    private Integer projectBodyId; //项目内容id
+    private Integer projectBodyId;//bodyId
 
     private String projectImg;//项目封面
 

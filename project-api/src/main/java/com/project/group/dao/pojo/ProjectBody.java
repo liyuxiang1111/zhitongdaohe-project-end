@@ -9,7 +9,7 @@ public class ProjectBody {
 
     private String projectContent;
 
-    private String contentHtml;
+    private String projectHtml;
 
     private Integer projectId;
 }
